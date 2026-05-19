@@ -13,3 +13,18 @@ The framework wraps this architecture in a fully automated pipeline following nn
 - **Ensemble inference**: per-fold checkpoint loading with CPU logit averaging and optional mirror test-time augmentation.
 - **Experiment tracking**: Weights & Biases integration with per-fold and cross-validation aggregation.
 - **Pretraining / fine-tuning**: UpKern spatial weight interpolation, transfer learning from external checkpoints, layer freezing with gradual unfreezing and per-group learning rate scaling.
+
+## Requirements
+
+BioAI is implemented in Python and relies on a CUDA-enabled PyTorch stack for GPU-accelerated 3D medical image segmentation. The provided environment includes, among others:
+
+- `torch==2.11.0+cu126` and `torchvision==0.26.0+cu126`
+- CUDA 12.6-related packages, including `cuda-toolkit==12.6.3`
+- `monai==1.5.2`
+- `hydra-core==1.3.2` and `omegaconf==2.3.0`
+- `numpy==2.4.3`, `scipy==1.17.1`, `pandas==3.0.2`, and `scikit-image==0.26.0`
+- `nibabel==5.4.2` and `simpleitk==2.5.3` for medical image I/O
+- `einops==0.8.2`, `timm==1.0.26`, and `triton==3.6.0`
+- `wandb==0.26.0` for experiment tracking
+
+A complete list of pinned dependencies is provided in `requirements.txt`.
