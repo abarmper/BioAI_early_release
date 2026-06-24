@@ -23,7 +23,6 @@ validation summary.json produced by the training pipeline and saves:
 import argparse
 import ctypes
 import json
-import os
 import re
 import signal
 import subprocess
@@ -42,9 +41,8 @@ def _set_pdeathsig():
 
 
 _DEFAULT_RUNS_FILE = Path(__file__).parent / "experiments" / "runs.yaml"
-# Resolved at import time from BIOAI_RUNS_FILE env var; can be re-bound by main()
-# from --runs-file. All other references in this module read this global.
-RUNS_FILE = Path(os.environ.get("BIOAI_RUNS_FILE", _DEFAULT_RUNS_FILE)).resolve()
+# Can be re-bound by main() via --runs-file. All other references read this global.
+RUNS_FILE = _DEFAULT_RUNS_FILE.resolve()
 RESULTS_DIR = Path(__file__).parent / "experiments" / "results"
 
 
@@ -724,10 +722,7 @@ def main() -> None:
     parser.add_argument("--force", action="store_true", help="Ignore status and dependency checks")
     parser.add_argument(
         "--runs-file",
-        help=(
-            "Path to the runs YAML to read/write. Defaults to "
-            "$BIOAI_RUNS_FILE if set, otherwise experiments/runs.yaml."
-        ),
+        help="Path to the runs YAML to read/write (default: experiments/runs.yaml).",
     )
     args = parser.parse_args()
 
